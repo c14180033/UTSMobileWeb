@@ -1,17 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      List Notes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- <ion-card>
+    <ion-item>
+      <ion-input placeholder='Judul' [(ngModel)]='Judul'></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input placeholder='Isi' [(ngModel)]='Isi'></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>MM DD YY</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Select Date" [(ngModel)]='tglNote'></ion-datetime>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Rating note:</ion-label>
+      <ion-select value="1" okText="Okay" cancelText="Dismiss" [(ngModel)]='rating'>
+        <ion-select-option value="1"> 1 </ion-select-option>
+        <ion-select-option value="2"> 2 </ion-select-option>
+        <ion-select-option value="3"> 3 </ion-select-option>
+        <ion-select-option value="4"> 4 </ion-select-option>
+        <ion-select-option value="5"> 5 </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button color='warning' expand='full'> Update </ion-button>
+  </ion-card> -->
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-card>
+    <ion-list>
+      <ion-item *ngFor='let data of isiData | async'>
+        <h1> {{data.judul}} </h1> <br>
+        <p> {{data.tglNote}} </p>
+        <div slots='end'>
+          <ion-button  color='secondary' (click)='goDetail(data.judul, data.isi, data.rating, data.tglNote)'> See Detail </ion-button>
+          <ion-button color='danger' (click)='delete(data.judul)'> Delete </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
