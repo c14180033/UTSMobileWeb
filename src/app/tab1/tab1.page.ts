@@ -15,6 +15,7 @@ export class Tab1Page {
   isiDataColl : AngularFirestoreCollection<data>;
 
   listFoto = []
+  listSelectedFoto = []
   urlImageStorage : string[] = [];
 
   Judul : string;
@@ -38,12 +39,13 @@ export class Tab1Page {
 
   addNote() {
     this.uploadSelectedFoto();
+    alert(this.listSelectedFoto);
     this.isiDataColl.doc(this.Judul).set({
       judul: this.Judul,
       isi: this.Isi,
       rating: this.rating,
       tglNote: this.tglNote.toString(),
-      linkFoto: this.urlImageStorage
+      linkFoto: this.listSelectedFoto
     });
   }
 
@@ -57,7 +59,7 @@ export class Tab1Page {
     }
   }
 
-  uploadSelectedFoto() {
+  async uploadSelectedFoto() {
     this.urlImageStorage = []
     for (var index in this.listFoto) {
       const imgFilepath = `imgStorage/${this.fotoService.dataFoto[index].filePath}`
@@ -65,6 +67,7 @@ export class Tab1Page {
         this.afStorage.upload(imgFilepath, this.fotoService.dataFoto[index].dataImage).then(() => {
           this.afStorage.storage.ref().child(imgFilepath).getDownloadURL().then((url) => {
             this.urlImageStorage.unshift(url);
+            this.listSelectedFoto.unshift(url);
             console.log(url);
           });
         });
