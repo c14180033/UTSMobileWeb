@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab1',
@@ -12,7 +14,32 @@ export class Tab1Page {
 
   Judul : string;
   Isi : string;
+  tglNote = new Date().toDateString();
+  rating : string;
 
-  constructor() {}
+  constructor(
+    afs : AngularFirestore,
+  ) {
+    this.isiDataColl = afs.collection('notes');
+    this.isiData = this.isiDataColl.valueChanges();
+  }
 
+  addNote() {
+    this.isiDataColl.doc(this.Judul).set({
+      judul: this.Judul,
+      isi: this.Isi,
+      rating: this.rating,
+      tglNote: this.tglNote
+    });
+    
+    // alert(this.rating);
+  }
+
+}
+
+interface data {
+  judul : string,
+  isi : string,
+  rating : string,
+  tglNote : string
 }
