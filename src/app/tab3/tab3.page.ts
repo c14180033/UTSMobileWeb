@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FotoService } from '../services/foto.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +9,24 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  urlImageStorage : string[] = [];
+
+  constructor(
+    public fotoService : FotoService
+  ) { 
+    
+  }
+
+  async ngOnInit() {
+    await this.fotoService.loadFoto();
+  }
+
+  async ionViewDidEnter() {
+    await this.fotoService.loadFoto();
+  }
+
+  addPhoto() {
+    this.fotoService.addPhoto();
+  }
 
 }

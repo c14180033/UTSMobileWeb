@@ -34,14 +34,6 @@ export class Tab2Page {
     this.router.navigate(['/detail', judul, isi, rating, tglNote]);
   }
 
-  update(judul: string) {
-    var dataUpdt = {
-      judul: this.Judul,
-      isi: this.Isi
-    }
-    this.isiDataColl.doc(judul).update(dataUpdt);
-  }
-
   delete(judul: string) {
     this.isiDataColl.doc(judul).delete();
   }

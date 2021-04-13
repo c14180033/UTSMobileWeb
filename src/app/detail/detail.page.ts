@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,16 +10,25 @@ import { Observable } from 'rxjs';
 })
 export class DetailPage implements OnInit {
 
+  isiData : Observable<data[]> ;
+  isiDataColl : AngularFirestoreCollection<data>;
+
   Judul : string;
   Isi : string;
   tglNote : string;
   rating : string;
 
+  IsiUpdt : string;
+  tglNoteUpdt : string;
+  ratingUpdt : string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     afs : AngularFirestore
   ) { 
-    
+    this.isiDataColl = afs.collection('notes');
+    this.isiData = this.isiDataColl.valueChanges();
   }
 
   ngOnInit() {
@@ -29,6 +38,14 @@ export class DetailPage implements OnInit {
     this.rating = this.activatedRoute.snapshot.paramMap.get('rating');
   }
 
+  update(judul: string) {
+    var dataUpdt = {
+      isi: this.IsiUpdt,
+      rating: this.ratingUpdt,
+      tglNote: this.tglNoteUpdt
+    }
+    this.isiDataColl.doc(judul).update(dataUpdt);
+  }
 }
 
 interface data {

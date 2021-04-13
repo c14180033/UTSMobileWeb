@@ -16,7 +16,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>MM DD YY</ion-label>
+    <ion-label>Date: </ion-label>
     <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Select Date" [(ngModel)]='tglNote'></ion-datetime>
   </ion-item>
 
@@ -31,6 +31,17 @@
     </ion-select>
   </ion-item>
   
+  <ion-item>
+    <ion-label> Select Photo: </ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col size='6' *ngFor='let isiFoto of listFoto; index as position'>
+          <ion-checkbox [(ngModel)]='isiFoto.isChecked'> </ion-checkbox>
+          <ion-img [src]='isiFoto.webViewPath'></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
   <ion-button (click)='addNote()' expand='full'> Add Notes </ion-button>
 </ion-content>
