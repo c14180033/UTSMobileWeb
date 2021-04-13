@@ -1,5 +1,7 @@
 {
   "name": "utsTabs",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

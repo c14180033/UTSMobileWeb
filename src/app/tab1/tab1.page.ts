@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
+  isiData : Observable<data[]> ;
+  isiDataColl : AngularFirestoreCollection<data>;
+
+  Judul : string;
+  Isi : string;
+
   constructor() {}
 
 }
